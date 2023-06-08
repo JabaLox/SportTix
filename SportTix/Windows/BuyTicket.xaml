@@ -1,0 +1,287 @@
+﻿<Window x:Name="buTicketWindow" x:Class="SportTix.Windows.BuyTicket"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SportTix.Windows"
+        mc:Ignorable="d"
+        Title="Покупка билета" Height="450" Width="800" ResizeMode="NoResize" BorderThickness="0" Icon="/Resorces/Images/Icons/SportTixLogo.ico" Closing="Window_Closing" Opacity="0">
+
+    <Grid x:Name="ViewGrid">
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="175*"></ColumnDefinition>
+                <ColumnDefinition Width="465*"></ColumnDefinition>
+                <ColumnDefinition Width="175*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="119*"></RowDefinition>
+                    <RowDefinition Height="290*"></RowDefinition>
+                    <RowDefinition Height="25*"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="89*"/>
+                        <RowDefinition Height="25*"/>
+                    </Grid.RowDefinitions>
+                    <Image Grid.Column="0" Source="/Resorces/LogoTeams/Salavat.png" Width="155" Height="155" HorizontalAlignment="Left" VerticalAlignment="Center" Stretch="UniformToFill"/>
+
+                    <TextBlock Grid.Row="1" Grid.Column="0" TextAlignment="Center">Салават Юлаев</TextBlock>
+                    <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Center" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <TextBlock x:Name="StatusText" TextAlignment="Center" ></TextBlock>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock x:Name="ScoreHomeTeam" Grid.Column="0" TextAlignment="Center"></TextBlock>
+                            <TextBlock Grid.Column="1" TextAlignment="Center">-</TextBlock>
+                            <TextBlock x:Name="ScoreGuesTeam" Grid.Column="2" TextAlignment="Center"></TextBlock>
+                        </Grid>
+                        <Grid Grid.Row="2">
+
+                            <TextBlock x:Name="DateMatchStartText" Grid.Column="0" ></TextBlock>
+
+                        </Grid>
+                    </Grid>
+                    <Ellipse Grid.Column="2" MinHeight="55" MinWidth="55" >
+                        <Ellipse.Fill>
+                            <ImageBrush x:Name="TeamGuestImg"  Stretch="Uniform"/>
+                        </Ellipse.Fill>
+                    </Ellipse>
+                    <TextBlock x:Name="TeamGuestText" Grid.Row="1" Grid.Column="2" TextAlignment="Center" ></TextBlock>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="61*"></RowDefinition>
+                        <RowDefinition Height="29*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Canvas >
+                            <Button x:Name="X2Btn" Content=""
+                                BorderThickness="0" Background="LightCoral"
+                                Foreground="White" Click="SectorBtnClick" Tag="10 3 X2 3000 2" Height="20" Canvas.Left="249" Canvas.Top="20" Width="39"
+                                  />
+                            <Button x:Name="X1Btn" Content=""
+                                BorderThickness="0" Background="LightCoral"
+                                Foreground="White" Click="SectorBtnClick" Tag="10 3 X1 3000 2" Height="20" Canvas.Left="168" Canvas.Top="20" Width="39"
+                                    />
+                            <Button x:Name="Y1Btn" Content=""
+                                BorderThickness="0" Background="Orange"
+                                Foreground="White" Click="SectorBtnClick" Tag="5 2 Y1 5000 3" Height="10" Canvas.Left="207" Canvas.Top="20" Width="42" />
+                            <Button x:Name="E2Btn" Content="" 
+                                BorderThickness="0" Background="Yellow"
+                                Foreground="White" Click="SectorBtnClick" Tag="25 3 E2 1250 1" Height="20" Canvas.Left="168" Width="120"
+                                   />
+
+
+                            <Button x:Name="C4Btn" BorderThickness="0" Content="" Width="62" Height="23" Canvas.Top="121" Background="#FF1FEED4" Click="SectorBtnClick" Tag="5 7 C4 1300 Standart" />
+                            <Button x:Name="E1Btn" Content=""
+                                BorderThickness="0" Background="Yellow"
+                                Foreground="White" Click="SectorBtnClick" Tag="25 6 E1 1500 1" Height="40" Canvas.Left="168" Canvas.Top="144" Width="120"
+                                    >
+
+                            </Button>
+                            <Button x:Name="F4Btn" Content="F"
+                                BorderThickness="0" Background="Green"
+                                Foreground="White"  Tag="18 5 F4 1300 1" Click="SectorBtnClick" Height="40" Canvas.Left="349" Width="45"
+                                    />
+                            <Button x:Name="F1Btn" Content="F"
+                                BorderThickness="0" Background="Green"
+                                Foreground="White" Click="SectorBtnClick" Tag="18 5 F1 1200 1" Height="40" Canvas.Left="62" Canvas.Top="144" Width="45"
+                                   />
+                            <Button x:Name="F2Btn" Content="F"
+                                BorderThickness="0" Background="Green"
+                                Foreground="White"  Tag="18 5 F2 1200 1" Click="SectorBtnClick" Height="40" Canvas.Left="349" Canvas.Top="144" Width="45"
+                                   />
+                            <Button x:Name="F3Btn" Content="F"
+                                BorderThickness="0" Background="Green"
+                                Foreground="White"  Tag="18 5 F3 1200 1" Click="SectorBtnClick" Height="40" Canvas.Left="62" Width="45"
+                                    />
+                            <Button x:Name="A3Btn" Content="A" RenderTransformOrigin="0.5,0.5"
+                                BorderThickness="0" Background="Red"
+                                Foreground="White" Height="40" Canvas.Left="394" Width="62"  Tag="12 7 A2 1000 1"  Click="SectorBtnClick">
+
+                                <Button.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="0,90,0,0"/>
+                                    </Style>
+                                </Button.Resources>
+                            </Button>
+                            <Button x:Name="D2Btn" Content=""
+                                BorderThickness="0" Background="Blue"
+                                Foreground="White" Click="SectorBtnClick"  Tag="25 7 D2 2000 1" Height="58" Canvas.Left="394" Canvas.Top="63" Width="62"
+                                    />
+                            <Button x:Name="A4Btn" Content="A" 
+                                RenderTransformOrigin="0.5,0.5"
+                                BorderThickness="0" Background="Red"
+                                Foreground="White" Height="40" Canvas.Left="394" Canvas.Top="144" Width="62"
+                                     Tag="12 7 A4 1000 1"  Click="SectorBtnClick">
+
+                                <Button.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="0,0,90,0"/>
+                                    </Style>
+                                </Button.Resources>
+
+                            </Button>
+                            <Button x:Name="A1Btn" Content="A" 
+                                RenderTransformOrigin="0.5,0.5"
+                                BorderThickness="0" Background="Red"
+                                Foreground="White" Height="40" Width="62"
+                                    Tag="12 7 A1 1000 1"  Click="SectorBtnClick">
+
+                                <Button.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="90,0,0,0"/>
+                                    </Style>
+                                </Button.Resources>
+
+                            </Button>
+                            <Button x:Name="D1Btn" Content="" 
+                                RenderTransformOrigin="0.5,0.5"
+                                BorderThickness="0" Background="Blue"
+                                Foreground="White" Click="SectorBtnClick"  Tag="25 7 D1 2000 1" Height="58" Canvas.Top="63" Width="62" 
+                                    >
+                                <Button.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="-1"/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Button.RenderTransform>
+                            </Button>
+                            <Button x:Name="A2Btn" Content="A" 
+                                RenderTransformOrigin="0.5,0.5" 
+                                BorderThickness="0" Background="Red"
+                                Foreground="White" Height="40" Canvas.Top="144" Width="62"
+                                    Tag="12 7 A3 1000 1"  Click="SectorBtnClick">
+                                <Button.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="0,0,0,90"/>
+                                    </Style>
+                                </Button.Resources>
+
+                            </Button>
+                            <Button x:Name="C3Btn" BorderThickness="0" Content="" Height="23" Canvas.Top="40" Width="62" Background="#FF1FEED4" Tag="5 7 C3 1300 1" Click="SectorBtnClick" />
+                            <Button x:Name="C2Btn" BorderThickness="0" Content="" Height="23" Canvas.Left="394" Canvas.Top="121" Width="62" Background="#FF1FEED4" Click="SectorBtnClick" Tag="5 7 C2 1300 1" />
+                            <Button x:Name="C1Btn" BorderThickness="0" Content="" Height="23" Canvas.Left="394" Canvas.Top="40" Width="62" Background="#FF1FEED4"  Tag="5 7 C1 1300 1" Click="SectorBtnClick" />
+                            <Button x:Name="B4Btn" Content="" BorderThickness="0" Height="40" Canvas.Left="107" Canvas.Top="144" Width="61" Background="#FF91F018" Click="SectorBtnClick" Tag="20 6 B4 1000 1" />
+                            <Button x:Name="B3Btn" Content="" BorderThickness="0" Height="40" Canvas.Left="288" Canvas.Top="144" Width="61" Background="#FF91F018" Click="SectorBtnClick" Tag="20 6 B3 1000 1" />
+                            <Button x:Name="B1Btn" Content="" BorderThickness="0" Height="40" Canvas.Left="107" Width="61" Background="#FF91F018" Click="SectorBtnClick" Tag="20 6 B1 1000 1" />
+                            <Button x:Name="B2Btn" Content="" BorderThickness="0" Height="40" Canvas.Left="288" Width="61" Background="#FF91F018" Click="SectorBtnClick" Tag="20 6 B2 1000 1" />
+
+
+                        </Canvas>
+
+
+                    </Grid>
+                    <Grid  Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="383*"/>
+                            <ColumnDefinition Width="73*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="71*"/>
+                            <RowDefinition Height="19*"/>
+                        </Grid.RowDefinitions>
+                        <ListView x:Name="TicketListView" Grid.Column="0" d:ItemsSource="{d:SampleData}" Grid.Row="0" >
+                            <ListView.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Удалить" Click="DeleteClickListContextMenu"/>
+                                </ContextMenu>
+                            </ListView.ContextMenu>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid HorizontalAlignment="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding StringFormat=Сектор {0}, Path=SectorTicket}"></TextBlock>
+                                        <TextBlock Grid.Column="0"  Grid.Row="1" Text="{Binding StringFormat=Ряд {0}, Path=RowTicket}"></TextBlock>
+                                        <TextBlock Grid.Column="0"  Grid.Row="2" Text="{Binding StringFormat=Место {0}, Path=PlaceTicket}"></TextBlock>
+                                        <TextBlock Grid.Column="1"  Grid.Row="0" Text="{Binding StringFormat=Тип {0}, Path=TypeTicket}"></TextBlock>
+                                        <TextBlock Grid.Column="2"  Grid.Row="0" Text="{Binding StringFormat=Стоимость {0}, Path=CostTicket}"></TextBlock>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                        <Button Background="#FFF52D02" Foreground="White" Content="Купить" Grid.Column="1" Grid.Row="0" Click="BuyClick" >
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="0,10,10,0"></Setter>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                        <Button Grid.Column="0" Content="Очистить"  Grid.Row="1" Margin="0,0,265,0" Click="BtnClearListClick"/>
+
+                    </Grid>
+                </Grid>
+
+            </Grid>
+
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="74*"></RowDefinition>
+                    <RowDefinition Height="45*"></RowDefinition>
+                    <RowDefinition Height="313*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Canvas Grid.Row="1">
+                    <ComboBox x:Name="TypeCombo" Style="{DynamicResource ComboBoxStyle1}" Width="151" Canvas.Left="10" SelectionChanged="TypeCombo_SelectionChanged" >
+                        <ComboBoxItem>Все типы</ComboBoxItem>
+                        <ComboBoxItem>Standart Edition</ComboBoxItem>
+                        <ComboBoxItem>Silver Edition</ComboBoxItem>
+                        <ComboBoxItem>Gold Edition</ComboBoxItem>
+
+
+                    </ComboBox>
+                </Canvas>
+            </Grid>
+            <Grid Background="Black" Grid.ColumnSpan="3" Opacity="0" Visibility="Hidden" x:Name="BackGrid" PreviewMouseLeftButtonDown="BackGrid_PreviewMouseLeftButtonDown"/>
+        </Grid>
+
+
+        <Grid x:Name="GridPlace"  HorizontalAlignment="Center" Grid.Row="0" 
+              Background="Transparent" Visibility="Hidden" Grid.Column="1" Width="570" 
+              Height="220" MaxHeight="220" MaxWidth="570">
+            <Border CornerRadius="10" BorderThickness="2" BorderBrush="Black" Background="White">
+                <Frame x:Name="FramePlaces" VerticalAlignment="Center" HorizontalAlignment="Center" NavigationUIVisibility="Hidden">
+                    <Frame.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                            <Setter Property="BorderBrush" Value="Red"/>
+                            <Setter Property="BorderThickness" Value="3"/>
+                            <Setter Property="Background" Value="Red"/>
+                        </Style>
+                    </Frame.Resources>
+                </Frame>
+            </Border>
+        </Grid>
+
+
+    </Grid>
+</Window>

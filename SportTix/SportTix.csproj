@@ -1,0 +1,112 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resorces\Images\Icons\Back.png" />
+    <None Remove="Resorces\Images\Icons\ClosedEye.png" />
+    <None Remove="Resorces\Images\Icons\IconPickPicture.png" />
+    <None Remove="Resorces\Images\Icons\NavigationUsers.png" />
+    <None Remove="Resorces\Images\Icons\NoneAvatar.png" />
+    <None Remove="Resorces\Images\Icons\OpenEye.png" />
+    <None Remove="Resorces\Images\Icons\picture.png" />
+    <None Remove="Resorces\Images\Icons\SportTixLogo.ico" />
+    <None Remove="Resorces\Images\logotype\SportTixLogo.png" />
+    <None Remove="Resorces\LogoTeams\admiral.png" />
+    <None Remove="Resorces\LogoTeams\AkBars.png" />
+    <None Remove="Resorces\LogoTeams\Amur.png" />
+    <None Remove="Resorces\LogoTeams\Avangard.png" />
+    <None Remove="Resorces\LogoTeams\Avto.png" />
+    <None Remove="Resorces\LogoTeams\Barys.png" />
+    <None Remove="Resorces\LogoTeams\CSKA.png" />
+    <None Remove="Resorces\LogoTeams\DynamoMinsk.png" />
+    <None Remove="Resorces\LogoTeams\DynamoMoscow.png" />
+    <None Remove="Resorces\LogoTeams\HomeTeam.png" />
+    <None Remove="Resorces\LogoTeams\Kunlun.png" />
+    <None Remove="Resorces\LogoTeams\Lada.png" />
+    <None Remove="Resorces\LogoTeams\loko.png" />
+    <None Remove="Resorces\LogoTeams\Metallurg.png" />
+    <None Remove="Resorces\LogoTeams\Nefetehimik.png" />
+    <None Remove="Resorces\LogoTeams\Salavat.png" />
+    <None Remove="Resorces\LogoTeams\Severstal.png" />
+    <None Remove="Resorces\LogoTeams\Sibir.png" />
+    <None Remove="Resorces\LogoTeams\SKA.png" />
+    <None Remove="Resorces\LogoTeams\Sochi.png" />
+    <None Remove="Resorces\LogoTeams\Spartak.png" />
+    <None Remove="Resorces\LogoTeams\Torpedo.png" />
+    <None Remove="Resorces\LogoTeams\Traktor.png" />
+    <None Remove="Resorces\LogoTeams\Vityaz.png" />
+    <None Remove="Resorces\PdfFile\ReportSportTix.pdf" />
+    <None Remove="Resorces\PdfFile\SportTixCheck.pdf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.5.0" />
+    <PackageReference Include="FirebaseStorage.net" Version="1.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="PDFsharp-MigraDoc" Version="1.50.5147" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resorces\Images\Icons\Back.png" />
+    <Resource Include="Resorces\Images\Icons\ClosedEye.png" />
+    <Resource Include="Resorces\Images\Icons\IconPickPicture.png" />
+    <Resource Include="Resorces\Images\Icons\NavigationUsers.png" />
+    <Resource Include="Resorces\Images\Icons\NoneAvatar.png" />
+    <Resource Include="Resorces\Images\Icons\OpenEye.png" />
+    <Resource Include="Resorces\Images\Icons\picture.png" />
+    <Resource Include="Resorces\Images\Icons\SportTixLogo.ico" />
+    <Resource Include="Resorces\Images\logotype\SportTixLogo.png" />
+    <Resource Include="Resorces\LogoTeams\admiral.png" />
+    <Resource Include="Resorces\LogoTeams\AkBars.png" />
+    <Resource Include="Resorces\LogoTeams\Amur.png" />
+    <Resource Include="Resorces\LogoTeams\Avangard.png" />
+    <Resource Include="Resorces\LogoTeams\Avto.png" />
+    <Resource Include="Resorces\LogoTeams\Barys.png" />
+    <Resource Include="Resorces\LogoTeams\CSKA.png" />
+    <Resource Include="Resorces\LogoTeams\DynamoMinsk.png" />
+    <Resource Include="Resorces\LogoTeams\DynamoMoscow.png" />
+    <Resource Include="Resorces\LogoTeams\HomeTeam.png" />
+    <Resource Include="Resorces\LogoTeams\Kunlun.png" />
+    <Resource Include="Resorces\LogoTeams\Lada.png" />
+    <Resource Include="Resorces\LogoTeams\loko.png" />
+    <Resource Include="Resorces\LogoTeams\Metallurg.png" />
+    <Resource Include="Resorces\LogoTeams\Nefetehimik.png" />
+    <Resource Include="Resorces\LogoTeams\Salavat.png" />
+    <Resource Include="Resorces\LogoTeams\Severstal.png" />
+    <Resource Include="Resorces\LogoTeams\Sibir.png" />
+    <Resource Include="Resorces\LogoTeams\SKA.png" />
+    <Resource Include="Resorces\LogoTeams\Sochi.png" />
+    <Resource Include="Resorces\LogoTeams\Spartak.png" />
+    <Resource Include="Resorces\LogoTeams\Torpedo.png" />
+    <Resource Include="Resorces\LogoTeams\Traktor.png" />
+    <Resource Include="Resorces\LogoTeams\Vityaz.png" />
+    <Resource Include="Resorces\PdfFile\ReportSportTix.pdf" />
+    <Resource Include="Resorces\PdfFile\SportTixCheck.pdf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+</Project>

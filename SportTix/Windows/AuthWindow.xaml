@@ -1,0 +1,211 @@
+﻿<Window x:Class="SportTix.Windows.AuthWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SportTix.Windows"
+        mc:Ignorable="d"
+        Title="Авторизация" Height="450" Width="400"  ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Initialized="Window_Initialized" Icon="/Resorces/Images/Icons/SportTixLogo.ico" >
+    <Grid>
+
+        <Grid.Resources>
+            <Storyboard x:Key="LogoStoryboard">
+                <DoubleAnimation Storyboard.TargetName="logo" Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:1" />
+                <DoubleAnimation Storyboard.TargetName="logo" Storyboard.TargetProperty="Height" From="200" To="100" Duration="0:0:0:0.1" BeginTime="0:0:1"/>
+                <ThicknessAnimation Storyboard.TargetName="logo" Storyboard.TargetProperty="Margin" From="0" To="30" Duration="0:0:0:0.1" BeginTime="0:0:1"/>
+
+
+            </Storyboard>
+            <Storyboard x:Key="formLoad">
+                <DoubleAnimation Storyboard.TargetName="form" Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:1" BeginTime="0:0:2"/>
+                <ThicknessAnimation Storyboard.TargetName="Ractangle_Copy" Storyboard.TargetProperty="Margin" From="400,375,-100,-100" To="320,350,-100,-100" Duration="0:0:0:0.1" BeginTime="0:0:1.5"/>
+                <ThicknessAnimation Storyboard.TargetName="Ractangle1_Copy" Storyboard.TargetProperty="Margin" From="400,420,-100,-100" To="310,377,-100,-100" Duration="0:0:0:0.1" BeginTime="0:0:1.5"/>
+                <ThicknessAnimation Storyboard.TargetName="Ractangle" Storyboard.TargetProperty="Margin" From="-165,-62,0,0" To="-85,0,0,0" Duration="0:0:0:0.1" BeginTime="0:0:1.5"/>
+                <ThicknessAnimation Storyboard.TargetName="Ractangle1" Storyboard.TargetProperty="Margin" From="-165,-17,0,0" To="-95,27,0,0" Duration="0:0:0:0.1" BeginTime="0:0:1.5"/>
+            </Storyboard>
+
+
+            <BitmapImage x:Key="CheckedImage" UriSource="\Resorces\Images\Icons\OpenEye.png"/>
+            <BitmapImage x:Key="UncheckedImage" UriSource="\Resorces\Images\Icons\ClosedEye.png"/>
+
+            <ControlTemplate x:Key="CheckBoxTemplate" TargetType="{x:Type CheckBox}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="20" Height="20"  >
+                        <Image.Style>
+                            <Style TargetType="{x:Type Image}">
+                                <Setter Property="Source" Value="{StaticResource UncheckedImage}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsChecked, RelativeSource={RelativeSource AncestorType={x:Type CheckBox}}}" Value="True">
+                                        <Setter Property="Source" Value="{StaticResource CheckedImage}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                    <ContentPresenter/>
+                </StackPanel>
+            </ControlTemplate>
+
+            <Style x:Key="CustomCheckBoxStyle" TargetType="{x:Type CheckBox}">
+                <Setter Property="Template" Value="{StaticResource CheckBoxTemplate}"/>
+                <Setter Property="Margin" Value="115,0,0,25"/>
+            </Style>
+
+
+        </Grid.Resources>
+
+
+
+        <Grid>
+            <Border x:Name="Mask" CornerRadius="50" Background="White"/>
+            <Image x:Name="logo" Source="\Resorces\Images\logotype\SportTixLogo.png" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0" Height="201" Width="201" RenderTransformOrigin="0.5,0.5" Stretch="Uniform">
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="0"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+                <Image.Triggers>
+                    <EventTrigger RoutedEvent="Window.Loaded">
+                        <BeginStoryboard Storyboard="{StaticResource LogoStoryboard}"/>
+                    </EventTrigger>
+                </Image.Triggers>
+                <Image.OpacityMask>
+                    <VisualBrush Visual="{Binding ElementName=Mask}"/>
+                </Image.OpacityMask>
+
+            </Image>
+        </Grid>
+
+
+        <StackPanel x:Name="form" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0" Width="290">
+
+            <TextBox x:Name="loginText"  Foreground="#FF777777"  Text="Введите логин" TextWrapping="Wrap"  Background="#FFFAFAFA" Width="206" Height="30" GotFocus="loginText_GotFocus" LostFocus="loginText_LostFocus">
+                <TextBox.Template>
+                    <ControlTemplate>
+                        <Border Background="#FFF1F1F1" CornerRadius="12" Padding="2" >
+                            <ScrollViewer Margin="0" x:Name="PART_ContentHost" />
+                        </Border>
+                    </ControlTemplate>
+                </TextBox.Template>
+            </TextBox>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <PasswordBox Grid.Column="0" x:Name="Password_box" Margin="40,6,0,17" Height="30" Background="#FFFAFAFA" Foreground="#FF1A1A1A" HorizontalAlignment="Left" Width="210" Grid.ColumnSpan="2">
+                    <PasswordBox.Template>
+                        <ControlTemplate>
+                            <Border CornerRadius="12" Padding="2" BorderThickness="2"  Background="#FFF1F1F1">
+                                <ScrollViewer Margin="0" x:Name="PART_ContentHost" />
+                            </Border>
+                        </ControlTemplate>
+                    </PasswordBox.Template>
+                </PasswordBox>
+
+                <TextBox Grid.Column="0" x:Name="Password_boxView" Margin="40,6,0,17" Height="30" Background="#FFFAFAFA" Foreground="#FF1A1A1A" HorizontalAlignment="Left" Width="210" Grid.ColumnSpan="2" Visibility="Hidden">
+                    <TextBox.Template>
+                        <ControlTemplate>
+                            <Border CornerRadius="12" Padding="2" BorderThickness="2"  Background="#FFF1F1F1">
+                                <ScrollViewer Margin="0" x:Name="PART_ContentHost" />
+                            </Border>
+                        </ControlTemplate>
+                    </TextBox.Template>
+                </TextBox>
+
+                <CheckBox BorderBrush="{x:Null}" Grid.Column="1" Margin="115,0,0,25" Style="{StaticResource CustomCheckBoxStyle}" Checked="passwordCheck" Unchecked="passwordUnCheck"/>
+
+            </Grid>
+
+            <CheckBox x:Name="RememberMeCheck" Margin="45,-10,0,0"  Content="Оставаться в системе">
+                <CheckBox.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="2"/>
+                    </Style>
+                </CheckBox.Resources>
+            </CheckBox>
+
+            <!--<PasswordBox Width="200" Height="30" Margin="0 0 0 10"/>-->
+
+            <Button x:Name="EntranceBtn" Width="100" Height="30" Content="Войти" BorderBrush="{x:Null}" Background="#FFF52D02" Foreground="White" Click="AuthBtnClick" Style="{DynamicResource ButtonStyle}">
+                <Button.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Grid HorizontalAlignment="Center">
+                <TextBlock Margin="0 10 0 0" Text="Нет аккаунта? "><Hyperlink NavigateUri="RegistrationWindow.xaml" Click="RegistrClickLink">Зарегистрируйся!</Hyperlink></TextBlock>
+
+            </Grid>
+
+            <StackPanel.Triggers>
+                <EventTrigger RoutedEvent="Window.Loaded">
+                    <BeginStoryboard Storyboard="{StaticResource formLoad}"/>
+                </EventTrigger>
+            </StackPanel.Triggers>
+        </StackPanel>
+
+        <Rectangle x:Name="Ractangle" HorizontalAlignment="Left" Height="20" Margin="-165,-62,0,0" VerticalAlignment="Top" Width="155" Fill="#FFF52D02" RenderTransformOrigin="0.5,0.5">
+            <Rectangle.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="27.822"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Rectangle.RenderTransform>
+            <Rectangle.Triggers>
+                <EventTrigger RoutedEvent="Window.Loaded">
+                    <BeginStoryboard Storyboard="{StaticResource formLoad}"/>
+                </EventTrigger>
+            </Rectangle.Triggers>
+        </Rectangle>
+
+        <Rectangle x:Name="Ractangle1" HorizontalAlignment="Left" Height="20" Margin="-165,-17,0,0" VerticalAlignment="Top" Width="155" Fill="#FFF52D02" RenderTransformOrigin="0.5,0.5">
+            <Rectangle.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="27.822"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Rectangle.RenderTransform>
+            <Rectangle.Triggers>
+                <EventTrigger RoutedEvent="Window.Loaded">
+                    <BeginStoryboard Storyboard="{StaticResource formLoad}"/>
+                </EventTrigger>
+            </Rectangle.Triggers>
+        </Rectangle>
+        <Rectangle x:Name="Ractangle_Copy" HorizontalAlignment="Left" Height="20" Margin="400,375,-100,-100" VerticalAlignment="Top" Width="155" Fill="#FFF52D02" RenderTransformOrigin="0.5,0.5">
+            <Rectangle.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="27.822"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Rectangle.RenderTransform>
+        </Rectangle>
+        <Rectangle x:Name="Ractangle1_Copy" HorizontalAlignment="Left" Height="20" Margin="400,420,-100,-100" VerticalAlignment="Top" Width="155" Fill="#FFF52D02" RenderTransformOrigin="0.5,0.5">
+            <Rectangle.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="27.822"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Rectangle.RenderTransform>
+        </Rectangle>
+
+
+        <!-- Логотип -->
+
+
+    </Grid>
+</Window>

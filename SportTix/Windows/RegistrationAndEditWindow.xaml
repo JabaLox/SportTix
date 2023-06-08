@@ -1,0 +1,114 @@
+﻿<Window x:Class="SportTix.Windows.RegistrationAndEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SportTix.Windows"
+        mc:Ignorable="d"
+       Title="Регистрация" Height="450" Width="800" MinHeight="450" MinWidth="800" Loaded="Window_Loaded" Icon="/Resorces/Images/Icons/SportTixLogo.ico">
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Background="#FFF1F1F1" CornerRadius="12" Padding="2" >
+                            <ScrollViewer Margin="0" x:Name="PART_ContentHost" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="PasswordBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border Background="#FFF1F1F1" CornerRadius="12" Padding="2" >
+                            <ScrollViewer Margin="0" x:Name="PART_ContentHost" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="7*"/>
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0" MaxWidth="150" MaxHeight="35" HorizontalAlignment="Left" MinHeight="20" MinWidth="100" Click="BackClick">Вернуться</Button>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0">
+                    <TextBlock>Имя</TextBlock>
+                    <TextBox x:Name="NameText" ></TextBox>
+                </StackPanel>
+                <StackPanel Grid.Row="1">
+                    <TextBlock>Фамилия</TextBlock>
+                    <TextBox x:Name="SurNameText" ></TextBox>
+                </StackPanel>
+                <StackPanel Grid.Row="2">
+                    <TextBlock>Отчество</TextBlock>
+                    <TextBox x:Name="PatronomycText" ></TextBox>
+                </StackPanel>
+                <StackPanel Grid.Row="3">
+                    <TextBlock>Логин</TextBlock>
+                    <TextBox x:Name="loginText" ></TextBox>
+                </StackPanel>
+                <StackPanel Grid.Row="4">
+                    <TextBlock>Пароль</TextBlock>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <PasswordBox x:Name="passwordText"  Grid.Column="0"></PasswordBox>
+                        <TextBox x:Name="passwordTextView" Grid.Column="0" Visibility="Hidden"></TextBox>
+                        <CheckBox Margin="-1,0,0,0" x:Name="ViewPasswordCheck" Grid.Column="1" HorizontalAlignment="Right" Width="199" Unchecked="ViewPasswordCheck_Unchecked" Checked="ViewPasswordCheck_Checked">Показать пароль</CheckBox>
+                    </Grid>
+                </StackPanel>
+                <StackPanel Grid.Row="5">
+                    <TextBlock>Дата рождения</TextBlock>
+                    <DatePicker x:Name="DateBirthPick" DisplayDate="1980-01-01" DisplayDateStart="1980-01-01" DisplayDateEnd="2007-01-01" ></DatePicker>
+                </StackPanel>
+                <Button x:Name="AddUserBtn" Grid.Row="7" Click="RegistrClickBtn">Зарегистрироваться</Button>
+                <Button x:Name="editUserBtn" Grid.Row="7" Visibility="Hidden" Click="editUserBtn_Click">Редактировать</Button>
+
+            </Grid>
+
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="39*"/>
+                <RowDefinition Height="316*"/>
+                <RowDefinition Height="77*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" TextAlignment="Center" VerticalAlignment="Bottom">Ваш аватар</TextBlock>
+            <Ellipse MaxHeight="550" MaxWidth="550"  Grid.Row="1">
+                <Ellipse.Fill>
+                    <ImageBrush x:Name="AvatarImage"  Stretch="UniformToFill" ImageSource="/Resorces/Images/Icons/NoneAvatar.png"  />
+                </Ellipse.Fill>
+            </Ellipse>
+            <Button x:Name="ImageBtn" MinHeight="50" MinWidth="50" MaxHeight="150" MaxWidth="150" VerticalAlignment="Top" HorizontalAlignment="Right" Click="OpenFolderClick" BorderBrush="{x:Null}" Height="50"  Grid.Row="2" Width="50">
+                <Button.Background>
+                    <ImageBrush ImageSource="/Resorces/Images/Icons/IconPickPicture.png"  />
+                </Button.Background>
+            </Button>
+        </Grid>
+    </Grid>
+</Window>
