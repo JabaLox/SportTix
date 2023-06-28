@@ -1,21 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Firebase.Storage;
+using SportTix.Model;
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
-using Firebase.Storage;
-using SportTix.Model;
+using Xceed.Wpf.Toolkit.PropertyGrid.Editors;
 
 namespace SportTix.Windows
 {
@@ -27,13 +18,13 @@ namespace SportTix.Windows
         public TicketWindow()
         {
             InitializeComponent();
-           
+
         }
 
         public async void readImage()
         {
             string Avatar = "NoneAvatar.png";
-            if(!string.IsNullOrEmpty(Properties.Settings.Default.PhotoUser))
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.PhotoUser))
                 Avatar = Properties.Settings.Default.PhotoUser;
             try
             {
@@ -46,9 +37,9 @@ namespace SportTix.Windows
             catch
             {
                 MessageBox.Show("У вас не имеется интеренет соединение, подключите интернет!");
-                AvatarImage.ImageSource = new BitmapImage(new Uri(GlobalClass.CorrectPath()+ "\\Resorces\\Images\\Icons\\NoneAvatar.png"));
+                AvatarImage.ImageSource = new BitmapImage(new Uri(GlobalClass.CorrectPath() + "\\Resorces\\Images\\Icons\\NoneAvatar.png"));
             }
-            
+
         }
 
         private void ExitLink(object sender, RoutedEventArgs e)
@@ -58,7 +49,7 @@ namespace SportTix.Windows
             Properties.Settings.Default.IdUser = 0;
             Properties.Settings.Default.NameUser = null;
             Properties.Settings.Default.Role = null;
-            Properties.Settings.Default.RememberMe=false;
+            Properties.Settings.Default.RememberMe = false;
             Properties.Settings.Default.Save();
             AuthWindow auth = new AuthWindow();
             auth.Show();
@@ -69,70 +60,79 @@ namespace SportTix.Windows
         {
             SporttixContext.Context.Matches.ToList().ForEach(x => SporttixContext.Context.Entry(x).Reload());
 
-            MatchList.ItemsSource = SporttixContext.Context.Matches.ToList();
+            MatchList.ItemsSource = SporttixContext.Context.Matches.OrderBy(x=>x.DateMatch).ToList();
 
             SetValueComboTeam();
 
-            if (Properties.Settings.Default.Role== "Администратор")
+            if (Properties.Settings.Default.Role == "Менеджер")
             {
                 ContextMenuList.Visibility = Visibility.Visible;
                 AddMatchBtn.Visibility = Visibility.Visible;
                 TicketUsersBtn.Visibility = Visibility.Visible;
             }
 
-            readImage();
-           
+            if (GlobalClass.CheckInternetConnection())
+            {
+                GlobalClass.readImageStatic(AvatarImage);
+            }
+            else
+            {
+                MessageBox.Show("У вас не имеется интеренет соединение, подключите интернет!");
+                AvatarImage.ImageSource = new BitmapImage(new Uri(GlobalClass.CorrectPath() + "\\Resorces\\Images\\Icons\\NoneAvatar.png"));
+
+
+            }
         }
 
         public void SetValueComboTeam()
         {
             TeamCombo.Items.Clear();
             var teamList = SporttixContext.Context.Matches.ToList();
-           
+            teamList = teamList.DistinctBy(x => x.IdTeamGuest).ToList();
             if (EndDatePick.SelectedDate != null)
             {
                 teamList = teamList.Where(x => x.DateMatch >= DateStartPick.SelectedDate && x.DateMatch <= EndDatePick.SelectedDate).ToList();
-               
+
             }
             TeamCombo.Items.Add("Все команды");
             foreach (var teams in teamList)
             {
-                TeamCombo.Items.Add(teams.IdTeamGuestNavigation.NameTeam+" "+teams.IdTeamGuestNavigation.City);
+                TeamCombo.Items.Add(teams.IdTeamGuestNavigation.NameTeam + " " + teams.IdTeamGuestNavigation.City);
+               
             }
         }
 
         public void RefreshList()
         {
-            var matchList = SporttixContext.Context.Matches.ToList();
+            var matchList = SporttixContext.Context.Matches.OrderBy(x => x.DateMatch).ToList();
 
-            if (TeamCombo.SelectedValue!=null)
+            if (TeamCombo.SelectedValue != null)
             {
-                if(TeamCombo.SelectedIndex!=0)
-                    matchList = matchList.Where(x=>x.IdTeamGuest==TeamCombo.SelectedIndex).ToList();
-            }
-
-            if(SortCombo.SelectedValue!=null)
-            {
-                switch(SortCombo.SelectedIndex) 
-                {
-                    case 0:
-                        matchList = matchList.OrderBy(x=>x.DateMatch).ToList();
-                        break;
-                    case 1:
-                        matchList = matchList.OrderByDescending(x=>x.DateMatch).ToList();
-                        break;
-                }
-            }
-            if(StatusCombo.SelectedValue!=null)
-            {
-                if(StatusCombo.SelectedIndex!=0)
-                    matchList = matchList.Where(x=>x.Status== (StatusCombo.SelectedItem as ComboBoxItem)?.Content.ToString()).ToList();
+                if (TeamCombo.SelectedIndex != 0)
+                    matchList = matchList.Where(x => x.IdTeamGuestNavigation.NameTeam+" "+x.IdTeamGuestNavigation.City == TeamCombo.SelectedItem.ToString()).ToList();
               
             }
 
-            if(DateStartPick.SelectedDate!=null)
+            if (SortCombo.SelectedValue != null)
             {
-                matchList = matchList.Where(x=>x.DateMatch.Value>=DateStartPick.SelectedDate).ToList();
+                switch (SortCombo.SelectedIndex)
+                {
+                    case 1:
+                        matchList = matchList.OrderByDescending(x => x.DateMatch).ToList();
+                        break;
+                }
+            }
+            if (StatusCombo.SelectedValue != null)
+            {
+                if (StatusCombo.SelectedIndex != 0)
+                    matchList = matchList.Where(x => x.Status == (StatusCombo.SelectedItem as ComboBoxItem)?.Content.ToString()).ToList();
+                MessageBox.Show((StatusCombo.SelectedItem as ComboBoxItem)?.Content.ToString());
+
+            }
+
+            if (DateStartPick.SelectedDate != null)
+            {
+                matchList = matchList.Where(x => x.DateMatch.Value >= DateStartPick.SelectedDate).ToList();
             }
 
             if (EndDatePick.SelectedDate != null)
@@ -140,7 +140,7 @@ namespace SportTix.Windows
                 matchList = matchList.Where(x => x.DateMatch.Value <= EndDatePick.SelectedDate).ToList();
             }
 
-            MatchList.ItemsSource = matchList;  
+            MatchList.ItemsSource = matchList;
         }
 
         private void TeamCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -175,14 +175,14 @@ namespace SportTix.Windows
 
         private void MenuItemEditClick(object sender, RoutedEventArgs e)
         {
-            if(MatchList.SelectedItems!=null)
+            if (MatchList.SelectedItems != null)
             {
                 var items = (dynamic)MatchList.SelectedItem;
                 AddEditMatchWindow addEditMatchWindow = new AddEditMatchWindow(items.IdMatches, items.MatchDate);
                 addEditMatchWindow.StatusMatchCombo.Text = items.Status;
                 addEditMatchWindow.ScoreGuestTeamText.Text = items.ScoreGuestHome.ToString();
                 addEditMatchWindow.ScoreHomeTeamText.Text = items.ScoreHomeTeam.ToString();
-                addEditMatchWindow.TeamGuestCombo.SelectedIndex = items.IdTeamGuest-1; ;
+                addEditMatchWindow.TeamGuestCombo.SelectedIndex = items.IdTeamGuest - 1; ;
                 addEditMatchWindow.NameTeamGuestText.Text = items.IdTeamGuestNavigation.NameTeam;
                 addEditMatchWindow.EditBtnMatch.Visibility = Visibility.Visible;
                 addEditMatchWindow.addBtnMatch.Visibility = Visibility.Hidden;
@@ -196,7 +196,7 @@ namespace SportTix.Windows
         {
             if (MatchList.SelectedItem != null)
             {
-                
+
                 var items = (dynamic)MatchList.SelectedItem;
                 if (items.Status == "Не начался")
                 {
@@ -243,6 +243,7 @@ namespace SportTix.Windows
             registrationAndEdit.editUserBtn.Visibility = Visibility.Visible;
             registrationAndEdit.Title = "Редактирования профиля";
             registrationAndEdit.Show(); ;
+
             this.Close();
         }
 
@@ -252,7 +253,7 @@ namespace SportTix.Windows
             {
                 var items = (dynamic)MatchList.SelectedItem;
                 int idMatchDel = items.IdMatches;
-                if(SporttixContext.Context.Tickets.FirstOrDefault(x=>x.IdMatches==idMatchDel)==null)
+                if (SporttixContext.Context.Tickets.FirstOrDefault(x => x.IdMatches == idMatchDel) == null)
                 {
                     if (MessageBox.Show("Вы точно хотите удалить этот матч?", "Удаление матча", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     {

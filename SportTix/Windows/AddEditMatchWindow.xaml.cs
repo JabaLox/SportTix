@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SportTix.Model;
+using System;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using SportTix.Model;
 
 
 namespace SportTix.Windows
@@ -28,18 +21,18 @@ namespace SportTix.Windows
         {
             InitializeComponent();
             _IdMatch = idMatch;
-            if(dateMatchTime!=null)
+            if (dateMatchTime != null)
                 DateTimePick.Text = dateMatchTime.ToString();
 
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(TeamGuestCombo.SelectedValue!=null)
+            if (TeamGuestCombo.SelectedValue != null)
             {
                 var team = SporttixContext
                      .Context.Teams.FirstOrDefault(x => x.IdTeams == TeamGuestCombo.SelectedIndex + 1);
-               GuestTeamImage.ImageSource = new BitmapImage(new Uri(GlobalClass.CorrectPath() + @"Resorces\LogoTeams\" + team.Logotype, UriKind.Relative));
+                GuestTeamImage.ImageSource = new BitmapImage(new Uri(GlobalClass.CorrectPath() + @"Resorces\LogoTeams\" + team.Logotype, UriKind.Relative));
                 NameTeamGuestText.Text = team.NameTeam;
             }
             else
@@ -50,13 +43,13 @@ namespace SportTix.Windows
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            TeamGuestCombo.ItemsSource = SporttixContext.Context.Teams.Select(x => x.NameTeam +" "+ x.City).ToList();
+            TeamGuestCombo.ItemsSource = SporttixContext.Context.Teams.Select(x => x.NameTeam + " " + x.City).ToList();
             DateTimePick.Watermark = DateTime.Now;
         }
 
         private void StatusMatchCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(StatusMatchCombo.SelectedIndex!=0)
+            if (StatusMatchCombo.SelectedIndex != 0)
             {
                 NameHomeTeamText.Visibility = Visibility.Visible;
                 NameTeamGuestText.Visibility = Visibility.Visible;
@@ -74,17 +67,17 @@ namespace SportTix.Windows
 
         private void addBtnMatch_Click(object sender, RoutedEventArgs e)
         {
-            if(TeamGuestCombo.SelectedValue!=null && !string.IsNullOrEmpty(DateTimePick.Text))
+            if (TeamGuestCombo.SelectedValue != null && !string.IsNullOrEmpty(DateTimePick.Text))
             {
                 int ScoreHome = Convert.ToInt32(ScoreHomeTeamText.Text);
                 int ScoreGuest = Convert.ToInt32(ScoreGuestTeamText.Text);
-                if (StatusMatchCombo.SelectedIndex==2 && (ScoreHome==0 && ScoreGuest==0)) 
+                if (StatusMatchCombo.SelectedIndex == 2 && (ScoreHome == 0 && ScoreGuest == 0))
                 {
                     MessageBox.Show("В хоккее не может быть ничей");
                 }
                 else
                 {
-                  
+
                     int id = SporttixContext.Context.Matches.ToList().LastOrDefault(x => x.IdMatches != null).IdMatches + 1;
                     Model.Match match = new Model.Match
                     {
@@ -94,7 +87,7 @@ namespace SportTix.Windows
                         ScoreGuestHome = ScoreGuest,
                         Status = StatusMatchCombo.Text.ToString(),
                         DateMatch = Convert.ToDateTime(DateTimePick.Text),
-                };
+                    };
                     SporttixContext.Context.Matches.Add(match);
                     SporttixContext.Context.SaveChanges();
                     MessageBox.Show("Успех");
@@ -125,15 +118,15 @@ namespace SportTix.Windows
                 matchContext.IdTeamGuest = TeamGuestCombo.SelectedIndex + 1;
                 matchContext.ScoreGuestHome = ScoreGuest;
                 matchContext.ScoreHomeTeam = ScoreHome;
-                
+
                 SporttixContext.Context.SaveChanges();
                 MessageBox.Show("Матч успешно изменён");
 
                 TicketWindow ticketWindow = new TicketWindow();
-               ticketWindow.Show();
+                ticketWindow.Show();
                 this.Close();
             }
-            
+
         }
 
         private void ScoreHomeTeamText_PreviewTextInput(object sender, TextCompositionEventArgs e)

@@ -7,7 +7,7 @@
         xmlns:properties="clr-namespace:SportTix.Properties"
         xmlns:local="clr-namespace:SportTix.Windows"
         mc:Ignorable="d"
-        Title="Список матчей" Height="600" Width="1200" WindowStartupLocation="CenterScreen" MinHeight="450" MinWidth="800" Loaded="Window_Loaded" Icon="/Resorces/Images/Icons/SportTixLogo.ico">
+        Title="Список матчей" Height="600" Width="1200" WindowStartupLocation="CenterScreen" MinHeight="450" MinWidth="1050" Loaded="Window_Loaded" Icon="/Resorces/Images/Icons/SportTixLogo.ico">
     <Window.Background>
         <ImageBrush Stretch="UniformToFill" ImageSource="/Resorces/Images/Icons/Back.png"/>
     </Window.Background>
@@ -26,6 +26,7 @@
                 <DoubleAnimation Storyboard.TargetName="ShadowLeftMenu" Storyboard.TargetProperty="Opacity" From="0.5" To="0" Duration="0:0:0:0.1"/>
                 <DoubleAnimation Storyboard.TargetName="LeftMenu" Storyboard.TargetProperty="Width" From="{x:Static SystemParameters.PrimaryScreenWidth}" To="0" Duration="0:0:0:0.1" BeginTime="0:0:0:0.1"/>
             </Storyboard>
+          
         </Grid.Resources>
 
         <Grid.RowDefinitions>
@@ -110,7 +111,18 @@
                                     <RowDefinition></RowDefinition>
                                     <RowDefinition></RowDefinition>
                                 </Grid.RowDefinitions>
-                                <TextBlock TextAlignment="Center" Text="{Binding StringFormat=Статус {0}, Path=Status}"></TextBlock>
+                                <Grid Grid.Row="0" HorizontalAlignment="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding StringFormat=Статус {0}, Path=Status}"></TextBlock>
+                                    <Grid Grid.Column="1">
+                                        <Ellipse x:Name="StatusEl1" Width="20" Height="20" Fill="{Binding ColorStatus}"></Ellipse>
+                                        <Ellipse x:Name="StatusEl2" Width="12" Height="12" Fill="{Binding ColorStatus}"></Ellipse>
+                                    </Grid>
+                                </Grid>
+                                
                                 <Grid Grid.Row="1" HorizontalAlignment="Stretch">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition ></ColumnDefinition>
@@ -137,19 +149,33 @@
                                 </Grid.RowDefinitions>
                                 <Image Source="{Binding imageTeam, TargetNullValue={StaticResource Plug}}" Grid.Column="2" Grid.Row="0" Width="155" Height="155"></Image>
                                 <Grid Grid.Row="1">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="{Binding IdTeamGuestNavigation.NameTeam}" TextAlignment="Center"></TextBlock>
-                                    <TextBlock Grid.Column="1" Margin="5,0,0,0" Text="{Binding IdTeamGuestNavigation.City}" TextAlignment="Center"></TextBlock>
+                                   
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Text="{Binding IdTeamGuestNavigation.NameTeam}" TextAlignment="Center"></TextBlock>
+                                    <TextBlock Grid.Row="1" Text="{Binding IdTeamGuestNavigation.City}" TextAlignment="Center"></TextBlock>
                                 </Grid>
-
+                                <Grid.Resources>
+                                    <Storyboard x:Key="StatusElAnimStart"  RepeatBehavior="Forever">
+                                        <DoubleAnimation Storyboard.TargetName="StatusEl1" Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:0:0.5" />
+                                        <DoubleAnimation Storyboard.TargetName="StatusEl2" Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0:0.5" />
+                                        <DoubleAnimation Storyboard.TargetName="StatusEl1" Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0:0.5"  BeginTime="0:0:0:0.5" />
+                                        <DoubleAnimation Storyboard.TargetName="StatusEl2" Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:0:0.5"  BeginTime="0:0:0:0.5"/>
+                                    </Storyboard>
+                                </Grid.Resources>
+                                <Grid.Triggers>
+                                    <EventTrigger RoutedEvent="ListView.Loaded">
+                                        <BeginStoryboard Storyboard="{StaticResource StatusElAnimStart}"></BeginStoryboard>
+                                    </EventTrigger>
+                                </Grid.Triggers>
                             </Grid>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
-
+               
+                
             </ListView>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
@@ -197,48 +223,48 @@
 
         <Grid x:Name="LeftMenu" Width="0" HorizontalAlignment="Left" Grid.RowSpan="5" >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="109*"></ColumnDefinition>
-                <ColumnDefinition Width="891*"></ColumnDefinition>
+                <ColumnDefinition Width="150*"></ColumnDefinition>
+                <ColumnDefinition Width="850*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0" Background="White">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="479*"></RowDefinition>
-                    <RowDefinition Height="105*"></RowDefinition>
+                    <RowDefinition Height="500*"></RowDefinition>
+                    <RowDefinition Height="100*"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="169*"/>
-                        <RowDefinition Height="20*"/>
-                        <RowDefinition Height="20*"/>
-                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="50*"/>
+                        <RowDefinition  Height="5*"/>
+                        <RowDefinition  Height="5*"/>
+                        <RowDefinition  Height="5*"/>
                     </Grid.RowDefinitions>
-                    <Border Grid.Row="0" BorderThickness="0,0,0,1" BorderBrush="Black">
-                        <Grid Grid.Row="0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="95*"/>
-                                <RowDefinition Height="29*"/>
-                                <RowDefinition Height="30*"/>
-                                <RowDefinition Height="15*"/>
-                            </Grid.RowDefinitions>
-                            <Ellipse Grid.Row="0" Width="120" HorizontalAlignment="Center" Height="120">
-                                <Ellipse.Fill>
-                                    <ImageBrush x:Name="AvatarImage"  Stretch="UniformToFill"/>
-                                </Ellipse.Fill>
-                            </Ellipse>
-                            <TextBlock TextWrapping="Wrap" MaxWidth="150" Grid.Row="1" HorizontalAlignment="Left" FontSize="15" Text="{Binding Path=NameUser, Source={x:Static properties:Settings.Default}}" />
-                            <TextBlock Grid.Row="2" TextWrapping="Wrap" MaxWidth="160" HorizontalAlignment="Left" FontSize="15" Text="{Binding Path=UserLogin, Source={x:Static properties:Settings.Default}}" ></TextBlock>
-                            <TextBlock Grid.Row="3" TextWrapping="Wrap" MaxWidth="160" HorizontalAlignment="Left" FontSize="15" Text="{Binding Path=Role, Source={x:Static properties:Settings.Default}}" ></TextBlock>
 
-                        </Grid>
-                    </Border>
+                    <Grid Grid.Row="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="219*"/>
+                            <RowDefinition Height="45*" />
+                            <RowDefinition Height="45*" />
+                            <RowDefinition Height="45*" />
+                        </Grid.RowDefinitions>
+                        <Ellipse Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" MinWidth="120" MinHeight="120">
+                            <Ellipse.Fill>
+                                <ImageBrush x:Name="AvatarImage"  Stretch="UniformToFill"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+                        <TextBlock TextWrapping="Wrap" MaxWidth="150" Grid.Row="1" HorizontalAlignment="Left" FontSize="20" Text="{Binding Path=NameUser, Source={x:Static properties:Settings.Default}}" />
+                        <TextBlock Grid.Row="2" TextWrapping="Wrap" MaxWidth="250" HorizontalAlignment="Left" FontSize="20" Text="{Binding Path=UserLogin, Source={x:Static properties:Settings.Default}}"  />
+                        <TextBlock Grid.Row="3" TextWrapping="Wrap" MaxWidth="160" HorizontalAlignment="Left" FontSize="20" Text="{Binding Path=Role, Source={x:Static properties:Settings.Default}}"/>
+
+                    </Grid>
+
                     <Border BorderThickness="0,1,0,1" BorderBrush="Black" Grid.Row="1" >
-                        <TextBlock  Grid.Row="1" ><Hyperlink Click="EditProfilLink">Редактировать профиль</Hyperlink></TextBlock>
+                        <TextBlock  Grid.Row="1" FontSize="15" ><Hyperlink Click="EditProfilLink">Редактировать профиль</Hyperlink></TextBlock>
                     </Border>
                     <Border Grid.Row="2" BorderThickness="0,1,0,1" BorderBrush="Black" >
-                        <TextBlock Grid.Row="2"   ><Hyperlink Click="HistroryLink">История</Hyperlink></TextBlock>
+                        <TextBlock Grid.Row="2"  FontSize="15" ><Hyperlink Click="HistroryLink">История</Hyperlink></TextBlock>
                     </Border>
                     <Border Grid.Row="3" BorderThickness="0,1,0,0" BorderBrush="Black" >
-                        <TextBlock Grid.Row="3" ><Hyperlink Click="ExitLink">Выйти</Hyperlink></TextBlock>
+                        <TextBlock Grid.Row="3" FontSize="15"><Hyperlink Click="ExitLink">Выйти</Hyperlink></TextBlock>
                     </Border>
                 </Grid>
             </Grid>

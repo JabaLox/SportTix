@@ -24,9 +24,6 @@ namespace SportTix.Windows
             InitializeComponent();
         }
 
-        static string path = $"Sector.xaml";
-        Uri pageUri = new Uri(path, UriKind.Relative);
-
         private void SectorBtnClick(object sender, RoutedEventArgs e)
         {
 
@@ -39,7 +36,7 @@ namespace SportTix.Windows
             BackGrid.Visibility = Visibility;
             GridPlace.Visibility = Visibility;
 
-            FramePlaces.Navigate(pageUri);
+            FramePlaces.Navigate(new Sector());
 
             DoubleAnimation BackItemsControl = new DoubleAnimation();
             BackItemsControl.From = 0;
@@ -49,30 +46,16 @@ namespace SportTix.Windows
             BackItemsControl.SpeedRatio = 5;
 
             BackGrid.BeginAnimation(Grid.OpacityProperty, BackItemsControl);
+
         }
 
 
 
         private void BackGrid_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-
-            GridPlace.Visibility = Visibility.Hidden;
-            BackGrid.Visibility = Visibility.Hidden;
-
             FramePlaces.NavigationService.Navigate(null);
-            var currentPage = FramePlaces.Content as Page;
-            currentPage.ShowsNavigationUI = false;
-
-            if (TicketListView.Items.Count == 0)
-            {
-                SetValueListView();
-            }
-            else
-            {
-                TicketListView.Items.Clear();
-                SetValueListView();
-            }
         }
+
 
         public void SetValueListView()
         {
@@ -185,6 +168,7 @@ namespace SportTix.Windows
                     SporttixContext.Context.SaveChanges();
                 }
                 GenerateCheckPDF();
+
                 GlobalClass.tickets.Clear();
                 TicketListView.Items.Clear();
 
@@ -251,7 +235,7 @@ namespace SportTix.Windows
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (GlobalClass.tickets != null)
+            if (GlobalClass.tickets.Count > 0)
             {
                 if (MessageBox.Show("Если вы закроете таблицу, то обнулится корзина, Вы уверены?", "Закрытия окна", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
@@ -263,6 +247,30 @@ namespace SportTix.Windows
                 }
             }
         }
+
+        private void FramePlaces_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
+        {
+
+            if (FramePlaces.Content == null)
+            {
+
+                GridPlace.Visibility = Visibility.Hidden;
+                BackGrid.Visibility = Visibility.Hidden;
+
+                if (TicketListView.Items.Count == 0)
+                {
+                    SetValueListView();
+                }
+                else
+                {
+                    TicketListView.Items.Clear();
+                    SetValueListView();
+                }
+
+            }
+        }
+
+
     }
 
 }

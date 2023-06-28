@@ -1,26 +1,16 @@
-﻿using SportTix.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using Paragraph = MigraDoc.DocumentObjectModel.Paragraph;
-using Section = MigraDoc.DocumentObjectModel.Section;
-using MigraDoc.DocumentObjectModel;
+﻿using MigraDoc.DocumentObjectModel;
+using MigraDoc.DocumentObjectModel.Tables;
 using MigraDoc.Rendering;
 using PdfSharp.Pdf;
-using System.Diagnostics;
-using MigraDoc.DocumentObjectModel.Tables;
+using SportTix.Model;
+using System.Collections.Generic;
 using System.Data;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Diagnostics;
+using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+using Paragraph = MigraDoc.DocumentObjectModel.Paragraph;
+using Section = MigraDoc.DocumentObjectModel.Section;
 
 namespace SportTix.Windows
 {
@@ -38,7 +28,7 @@ namespace SportTix.Windows
         {
             BuyUsersList.ItemsSource = usertickets;
             SumText.Text = "Общая сумма покупок " + SporttixContext.Context.Usertickets
-                .Select(p => p.IdTicketNavigation.CostTicket).Sum().ToString();
+                .Select(p => p.IdTicketNavigation.CostTicket).Sum().ToString()+ " ₽";
 
             TeamCombo.Items.Add("Все команды");
             foreach (var teams in SporttixContext.Context.Teams.ToList())
@@ -139,7 +129,7 @@ namespace SportTix.Windows
             var listUsers = SporttixContext.Context.Usertickets.ToList();
             int? stonks = null;
             int? countBuy = null;
-            string[] months = { "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" }; 
+            string[] months = { "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь" };
 
             Document document = new Document();
 
@@ -153,7 +143,7 @@ namespace SportTix.Windows
             font.Size = 13;
             paragraph.AddImage(GlobalClass.CorrectPath() + @"Resorces\Images\logotype\SportTixLogo.jpg").Width = 125;
             paragraph.AddFormattedText("\nОтчёт по продажам билетов за каждый месяц", font);
-            paragraph.AddFormattedText("\nОбщая сумма продаж: " + listUsers.Select(x => x.IdTicketNavigation.CostTicket).Sum().ToString()+"\n", font);
+            paragraph.AddFormattedText("\nОбщая сумма продаж: " + listUsers.Select(x => x.IdTicketNavigation.CostTicket).Sum().ToString() + " ₽\n", font);
             MigraDoc.DocumentObjectModel.Tables.Table table = section.AddTable();
 
             table.AddColumn(Unit.FromCentimeter(5));
@@ -161,7 +151,7 @@ namespace SportTix.Windows
             table.AddColumn(Unit.FromCentimeter(9));
 
             Row headerRow = table.AddRow();
-            headerRow.Shading.Color = MigraDoc.DocumentObjectModel.Colors.LightGray; 
+            headerRow.Shading.Color = MigraDoc.DocumentObjectModel.Colors.LightGray;
 
             headerRow.Cells[0].AddParagraph("Месяц");
             headerRow.Cells[1].AddParagraph("Сумма продаж");
@@ -181,7 +171,7 @@ namespace SportTix.Windows
                 {
                     Row dataRow = table.AddRow();
                     dataRow.Cells[0].AddParagraph(month);
-                    dataRow.Cells[1].AddParagraph(stonks.ToString());
+                    dataRow.Cells[1].AddParagraph(stonks.ToString()+ " ₽");
                     dataRow.Cells[2].AddParagraph(countBuy.ToString());
                 }
             }
@@ -191,7 +181,7 @@ namespace SportTix.Windows
             renderer.Document = document;
             renderer.RenderDocument();
             renderer.PdfDocument.Save(GlobalClass.CorrectPath() + @"Resorces\PdfFile\ReportSportTix.pdf");
-           
+
             var p = new Process();
             p.StartInfo = new ProcessStartInfo(GlobalClass.CorrectPath() + @"Resorces\PdfFile\ReportSportTix.pdf")
             {

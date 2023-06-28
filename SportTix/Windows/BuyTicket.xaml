@@ -3,12 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:SportTix.Windows"
         mc:Ignorable="d"
-        Title="Покупка билета" Height="450" Width="800" ResizeMode="NoResize" BorderThickness="0" Icon="/Resorces/Images/Icons/SportTixLogo.ico" Closing="Window_Closing" Opacity="0">
-
+        Title="Покупка билета" Height="450" Width="800" ResizeMode="NoResize" BorderThickness="0" Icon="/Resorces/Images/Icons/SportTixLogo.ico" Closing="Window_Closing" >
     <Grid x:Name="ViewGrid">
-
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="175*"></ColumnDefinition>
@@ -221,11 +220,11 @@
                                             <RowDefinition/>
                                             <RowDefinition/>
                                         </Grid.RowDefinitions>
-                                        <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding StringFormat=Сектор {0}, Path=SectorTicket}"></TextBlock>
+                                        <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding StringFormat=Сектор {0}, Path=SectorTicket}" ></TextBlock>
                                         <TextBlock Grid.Column="0"  Grid.Row="1" Text="{Binding StringFormat=Ряд {0}, Path=RowTicket}"></TextBlock>
                                         <TextBlock Grid.Column="0"  Grid.Row="2" Text="{Binding StringFormat=Место {0}, Path=PlaceTicket}"></TextBlock>
-                                        <TextBlock Grid.Column="1"  Grid.Row="0" Text="{Binding StringFormat=Тип {0}, Path=TypeTicket}"></TextBlock>
-                                        <TextBlock Grid.Column="2"  Grid.Row="0" Text="{Binding StringFormat=Стоимость {0}, Path=CostTicket}"></TextBlock>
+                                        <TextBlock Grid.Column="1"  Grid.Row="0" Text="{Binding StringFormat=Тип {0}, Path=TypeTicket}" Margin="5,0,0,0"></TextBlock>
+                                        <TextBlock Grid.Column="2"  Grid.Row="0" Text="{Binding StringFormat=Стоимость {0} ₽, Path=CostTicket }" Margin="5,0,0,0"></TextBlock>
                                     </Grid>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
@@ -269,7 +268,7 @@
               Background="Transparent" Visibility="Hidden" Grid.Column="1" Width="570" 
               Height="220" MaxHeight="220" MaxWidth="570">
             <Border CornerRadius="10" BorderThickness="2" BorderBrush="Black" Background="White">
-                <Frame x:Name="FramePlaces" VerticalAlignment="Center" HorizontalAlignment="Center" NavigationUIVisibility="Hidden">
+                <Frame x:Name="FramePlaces" VerticalAlignment="Center" HorizontalAlignment="Center" NavigationUIVisibility="Hidden" Navigated="FramePlaces_Navigated">
                     <Frame.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="10"/>
@@ -281,7 +280,6 @@
                 </Frame>
             </Border>
         </Grid>
-
 
     </Grid>
 </Window>

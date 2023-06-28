@@ -1,18 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SportTix.Model;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using SportTix.Model;
-using SportTix.Windows;
 
 namespace SportTix.Windows
 {
@@ -30,7 +19,7 @@ namespace SportTix.Windows
         {
             HistoryList.ItemsSource = SporttixContext.Context.Usertickets.Where(x => x.IdUser == Properties.Settings.Default.IdUser).ToList();
             SumText.Text = "Общая сумма покупок " + SporttixContext.Context.Usertickets.Where(x => x.IdUser == Properties.Settings.Default.IdUser)
-                .Select(p => p.IdTicketNavigation.CostTicket).Sum().ToString();
+                .Select(p => p.IdTicketNavigation.CostTicket).Sum().ToString()+ " ₽";
 
             TeamCombo.Items.Add("Все команды");
             foreach (var teams in SporttixContext.Context.Teams.ToList())
@@ -52,26 +41,26 @@ namespace SportTix.Windows
 
             if (StartDate.SelectedDate != null)
             {
-                listHistory = listHistory.Where(x=>x.DateBuy>=StartDate.SelectedDate).ToList();
+                listHistory = listHistory.Where(x => x.DateBuy >= StartDate.SelectedDate).ToList();
             }
 
-            if (EndDate.SelectedDate!=null)
+            if (EndDate.SelectedDate != null)
             {
                 listHistory = listHistory.Where(x => x.DateBuy <= EndDate.SelectedDate).ToList();
             }
 
-            if(TeamCombo.SelectedValue!=null)
+            if (TeamCombo.SelectedValue != null)
             {
-                if(TeamCombo.SelectedIndex!=0)
-                    listHistory = listHistory.Where(x=>x.IdTicketNavigation.IdMatchesNavigation.IdTeamGuest==TeamCombo.SelectedIndex).ToList();
+                if (TeamCombo.SelectedIndex != 0)
+                    listHistory = listHistory.Where(x => x.IdTicketNavigation.IdMatchesNavigation.IdTeamGuest == TeamCombo.SelectedIndex).ToList();
             }
 
-            if (SumComboSort.SelectedValue!=null) 
+            if (SumComboSort.SelectedValue != null)
             {
-                switch(SumComboSort.SelectedIndex)
+                switch (SumComboSort.SelectedIndex)
                 {
                     case 0:
-                        listHistory = listHistory.OrderBy(x=>x.IdTicketNavigation.CostTicket).ToList();
+                        listHistory = listHistory.OrderBy(x => x.IdTicketNavigation.CostTicket).ToList();
                         break;
                     case 1:
                         listHistory = listHistory.OrderByDescending(x => x.IdTicketNavigation.CostTicket).ToList();
@@ -108,7 +97,7 @@ namespace SportTix.Windows
 
         private void TeamCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            RefreshListHistory(); 
+            RefreshListHistory();
         }
 
         private void SumComboSort_SelectionChanged(object sender, SelectionChangedEventArgs e)

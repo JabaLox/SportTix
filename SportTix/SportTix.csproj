@@ -9,6 +9,7 @@
   <ItemGroup>
     <None Remove="Resorces\Images\Icons\Back.png" />
     <None Remove="Resorces\Images\Icons\ClosedEye.png" />
+    <None Remove="Resorces\Images\Icons\closePlaces.png" />
     <None Remove="Resorces\Images\Icons\IconPickPicture.png" />
     <None Remove="Resorces\Images\Icons\NavigationUsers.png" />
     <None Remove="Resorces\Images\Icons\NoneAvatar.png" />
@@ -47,6 +48,7 @@
   <ItemGroup>
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.5.0" />
     <PackageReference Include="FirebaseStorage.net" Version="1.0.3" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
       <PrivateAssets>all</PrivateAssets>
@@ -59,6 +61,7 @@
   <ItemGroup>
     <Resource Include="Resorces\Images\Icons\Back.png" />
     <Resource Include="Resorces\Images\Icons\ClosedEye.png" />
+    <Resource Include="Resorces\Images\Icons\closePlaces.png" />
     <Resource Include="Resorces\Images\Icons\IconPickPicture.png" />
     <Resource Include="Resorces\Images\Icons\NavigationUsers.png" />
     <Resource Include="Resorces\Images\Icons\NoneAvatar.png" />

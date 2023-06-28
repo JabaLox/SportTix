@@ -1,9 +1,10 @@
-﻿ using System;
+﻿using Firebase.Storage;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net.NetworkInformation;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace SportTix
 {
@@ -26,6 +27,54 @@ namespace SportTix
             path = path.Remove(id, 24);
             return path;
         }
+
+        public static string Avatar = "";
+        public static async void readImageStatic(ImageBrush img)
+        {
+
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.PhotoUser))
+                Avatar = Properties.Settings.Default.PhotoUser;
+            else
+                Avatar = "NoneAvatar.png";
+
+            var storage = new FirebaseStorage("sporttix-56d51.appspot.com");
+            var sTOREAGERErEFERENCE = storage.Child(Avatar);
+
+            var downloadUri = await sTOREAGERErEFERENCE.GetDownloadUrlAsync();
+            img.ImageSource = new BitmapImage(new Uri(downloadUri));
+
+        }
+
+        public static bool CheckInternetConnection()
+        {
+            try
+            {
+                var ping = new Ping();
+                var result = ping.Send("8.8.8.8", 1000);
+                return result.Status == IPStatus.Success;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        //public static void SetValueTeamCombo(ComboBox TeamCombo, DatePicker EndDatePick, DatePicker DateStartPick)
+        //{
+        //    TeamCombo.Items.Clear();
+        //    var teamList = SporttixContext.Context.Matches.ToList();
+
+        //    if (EndDatePick.SelectedDate != null)
+        //    {
+        //        teamList = teamList.Where(x => x.DateMatch >= DateStartPick.SelectedDate && x.DateMatch <= EndDatePick.SelectedDate).ToList();
+
+        //    }
+        //    TeamCombo.Items.Add("Все команды");
+        //    foreach (var teams in teamList)
+        //    {
+        //        TeamCombo.Items.Add(teams.IdTeamGuestNavigation.NameTeam + " " + teams.IdTeamGuestNavigation.City);
+        //    }
+        //}//Планы
     }
 
     public class TicketGlobal
