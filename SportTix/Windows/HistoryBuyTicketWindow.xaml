@@ -96,7 +96,7 @@
                                     <TextBlock Grid.Row="0" Text="{Binding StringFormat=Сектор {0}, Path=IdTicketNavigation.Sector}"></TextBlock>
                                     <TextBlock Grid.Row="1" Text="{Binding  StringFormat=Ряд {0}, Path=IdTicketNavigation.Row}"></TextBlock>
                                     <TextBlock Grid.Row="2" Text="{Binding  StringFormat=Место {0}, Path=IdTicketNavigation.Place}"></TextBlock>
-                                    <TextBlock Grid.Row="3" Text="{Binding  StringFormat=Цена {0}, Path=IdTicketNavigation.CostTicket}"></TextBlock>
+                                    <TextBlock Grid.Row="3" Text="{Binding  StringFormat=Цена {0} ₽, Path=IdTicketNavigation.CostTicket}"></TextBlock>
                                 </Grid>
                             </Grid>
                         </DataTemplate>

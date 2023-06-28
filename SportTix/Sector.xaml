@@ -11,7 +11,11 @@
             <Setter Property="Width" Value="17"/>
             <Setter Property="Height" Value="17"/>
             <Setter Property="Padding" Value="-10"/>
+            <Setter Property="Foreground" Value="Beige"/>
+            <Setter Property="Background" Value="#5797ff"/>
+            <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Margin" Value="2,2,2,2"/>
+            <Setter Property="FontSize" Value="15"/>
             <Style.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>
@@ -42,12 +46,16 @@
             <RowDefinition/>
             <RowDefinition Height="9*"/>
         </Grid.RowDefinitions>
-
+        <Button Grid.Row="0" Grid.Column="0" Click="ClosedFrame">
+            <Button.Background>
+                <ImageBrush ImageSource="/Resorces/Images/Icons/closePlaces.png"/>
+            </Button.Background>
+        </Button>
         <TextBlock Grid.Column="1" Text="ОБЗОР НА МАТЧ" VerticalAlignment="Center" HorizontalAlignment="Center" Height="19" Width="118"/>
         <WrapPanel Grid.Row="01" Grid.Column="0" Orientation="Vertical" x:Name="RowNumber" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="3.5" />
 
         <Border Grid.Column="1" Grid.Row="1" BorderThickness="1,1,0,0" BorderBrush="Black">
-            <WrapPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Width="300" x:Name="PlacesBtnContainer" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <WrapPanel Grid.Row="1" Grid.Column="1"  Orientation="Horizontal" Width="300" x:Name="PlacesBtnContainer" HorizontalAlignment="Center" VerticalAlignment="Top"/>
         </Border>
 
 

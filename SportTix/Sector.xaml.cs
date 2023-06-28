@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SportTix.Model;
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using SportTix.Model;
 
 namespace SportTix
 {
@@ -38,8 +29,6 @@ namespace SportTix
 
             int CountRow = Convert.ToInt32(GlobalClass.TotalRow);
             int CountPlace = Convert.ToInt32(GlobalClass.TotalPlace);
-            //int place = 0;
-            //int row = 1;
 
             PlacesBtnContainer.Width = (int)(21.4285714286 * Convert.ToDouble(GlobalClass.TotalPlace));
 
@@ -52,7 +41,7 @@ namespace SportTix
                     {
                         Tag = Row + " " + Place,
                         Content = Place,
-                        Background = Brushes.Purple,
+
                     };
                     btnPlace.Click += ClickPlace;
 
@@ -63,8 +52,6 @@ namespace SportTix
                     if (SporttixContext.Context.Tickets.Where(x => x.Place == Place && x.Row == Row &&
                                                     x.Sector == GlobalClass.SectorPick && x.IdMatches == GlobalClass.MatchId).ToList().Count > 0)
                         btnPlace.IsEnabled = false;
-
-
 
                     PlacesBtnContainer.Children.Add(btnPlace);
                 }
@@ -86,7 +73,7 @@ namespace SportTix
                 PlaceTicket = Convert.ToInt32((sender as Button).Tag.ToString().Split()[1]),
 
             });
-            
+
         }
 
         private void ClickPlace(object sender, RoutedEventArgs e)
@@ -117,24 +104,27 @@ namespace SportTix
 
             bool TicketAdd = true;
 
-            if (GlobalClass.tickets.Any(ticket => ticket.PlaceTicket == Convert.ToInt32((sender as Button).Tag.ToString().Split()[1]) 
-            && ticket.RowTicket == Convert.ToInt32((sender as Button).Tag.ToString().Split()[0])))
+            if (GlobalClass.tickets.Any(ticket => ticket.PlaceTicket == Convert.ToInt32((sender as Button).Tag.ToString().Split()[1])
+                                            && ticket.RowTicket == Convert.ToInt32((sender as Button).Tag.ToString().Split()[0])))
             {
                 TicketAdd = false;
-                GlobalClass.tickets.RemoveAll(ticket => ticket.PlaceTicket == Convert.ToInt32((sender as Button).Tag.ToString().Split()[1]) 
-                && ticket.RowTicket == Convert.ToInt32((sender as Button).Tag.ToString().Split()[0]));
-                (sender as Button).Background = Brushes.Purple;
+                GlobalClass.tickets.RemoveAll(ticket => ticket.PlaceTicket == Convert.ToInt32((sender as Button).Tag.ToString().Split()[1])
+                                                    && ticket.RowTicket == Convert.ToInt32((sender as Button).Tag.ToString().Split()[0]));
+                (sender as Button).Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#5797ff"));
             }
 
             if (TicketAdd)
             {
                 SetTicketList(sender);
+
                 (sender as Button).Background = Brushes.Gray;
             }
 
+        }
 
-           
-
+        private void ClosedFrame(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(null);
         }
     }
 }
