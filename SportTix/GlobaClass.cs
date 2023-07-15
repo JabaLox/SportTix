@@ -59,22 +59,6 @@ namespace SportTix
             }
         }
 
-        //public static void SetValueTeamCombo(ComboBox TeamCombo, DatePicker EndDatePick, DatePicker DateStartPick)
-        //{
-        //    TeamCombo.Items.Clear();
-        //    var teamList = SporttixContext.Context.Matches.ToList();
-
-        //    if (EndDatePick.SelectedDate != null)
-        //    {
-        //        teamList = teamList.Where(x => x.DateMatch >= DateStartPick.SelectedDate && x.DateMatch <= EndDatePick.SelectedDate).ToList();
-
-        //    }
-        //    TeamCombo.Items.Add("Все команды");
-        //    foreach (var teams in teamList)
-        //    {
-        //        TeamCombo.Items.Add(teams.IdTeamGuestNavigation.NameTeam + " " + teams.IdTeamGuestNavigation.City);
-        //    }
-        //}//Планы
     }
 
     public class TicketGlobal
