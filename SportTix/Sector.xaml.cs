@@ -78,32 +78,7 @@ namespace SportTix
 
         private void ClickPlace(object sender, RoutedEventArgs e)
         {
-            //bool TicketAdd = true;
-
-            //if (GlobalClass.tickets.Count > 0)
-            //{
-
-            //    for (int i = 0; i < GlobalClass.tickets.Count; ++i)
-            //    {
-            //        if (GlobalClass.tickets[i].PlaceTicket == Convert.ToInt32((sender as Button).Tag.ToString().Split()[1])
-            //             && GlobalClass.tickets[i].RowTicket == Convert.ToInt32((sender as Button).Tag.ToString().Split()[0]))
-            //        {
-            //            TicketAdd = false;
-            //            GlobalClass.tickets.RemoveAt(i);
-            //            (sender as Button).Background = Brushes.Purple;
-            //        }
-            //    }
-            //}
-
-            //if (TicketAdd)
-            //{
-            //    SetTicketList(sender);
-            //    (sender as Button).Background = Brushes.Gray;
-            //}
-
-
             bool TicketAdd = true;
-
             if (GlobalClass.tickets.Any(ticket => ticket.PlaceTicket == Convert.ToInt32((sender as Button).Tag.ToString().Split()[1])
                                             && ticket.RowTicket == Convert.ToInt32((sender as Button).Tag.ToString().Split()[0])))
             {
